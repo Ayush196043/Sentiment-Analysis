@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Customer Feedback Intelligence</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- ---------------------------------------------------------
+             SIDEBAR NAVIGATION
+             --------------------------------------------------------- -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">🤖</div>
+                <div>
+                    <div class="brand-title">Feedback Intelligence</div>
+                    <div class="brand-sub">AI Analytics Dashboard</div>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active" data-page="overview">
+                    <span>🏠</span> Overview
+                </li>
+                <li class="nav-item" data-page="analyze">
+                    <span>🔍</span> Analyze Review
+                </li>
+                <li class="nav-item" data-page="analytics">
+                    <span>📊</span> Analytics
+                </li>
+                <li class="nav-item" data-page="aspects">
+                    <span>🧩</span> Aspect Insights
+                </li>
+                <li class="nav-item" data-page="about">
+                    <span>ℹ️</span> About
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div style="font-weight: 600; color: #ffffff;">Model Specs</div>
+                <div>Logistic Regression</div>
+                <div class="badge-metric" id="healthStatus">Checking Status...</div>
+            </div>
+        </aside>
+
+        <!-- ---------------------------------------------------------
+             MAIN CONTENT CANVAS
+             --------------------------------------------------------- -->
+        <main class="main-content">
+
+            <!-- =========================================================
+                 PAGE 1: OVERVIEW
+                 ========================================================= -->
+            <section id="page-overview" class="page-view active">
+                <div class="page-header">
+                    <h1 class="page-title">Customer Feedback Intelligence</h1>
+                    <p class="page-subtitle">AI-powered customer review analysis and aspect-level feedback insights.</p>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-label">Total Reviews</div>
+                        <div class="kpi-value" id="kpiTotal">393,579</div>
+                        <div class="kpi-sub">Cleaned Dataset Corpus</div>
+                    </div>
+                    <div class="kpi-card pos">
+                        <div class="kpi-label">Positive %</div>
+                        <div class="kpi-value" id="kpiPos">77.94%</div>
+                        <div class="kpi-sub">Score 4–5 Stars</div>
+                    </div>
+                    <div class="kpi-card neu">
+                        <div class="kpi-label">Neutral %</div>
+                        <div class="kpi-value" id="kpiNeu">7.56%</div>
+                        <div class="kpi-sub">Score 3 Stars</div>
+                    </div>
+                    <div class="kpi-card neg">
+                        <div class="kpi-label">Negative %</div>
+                        <div class="kpi-value" id="kpiNeg">14.50%</div>
+                        <div class="kpi-sub">Score 1–2 Stars</div>
+                    </div>
+                </div>
+
+                <!-- Visualizations Grid -->
+                <div class="grid-2col">
+                    <div class="card">
+                        <div class="card-title"><span>🍩</span> Sentiment Distribution</div>
+                        <div class="chart-box">
+                            <canvas id="overviewSentimentChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><span>⭐</span> Rating Distribution (1–5 Stars)</div>
+                        <div class="chart-box">
+                            <canvas id="overviewRatingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Feedback Insights -->
+                <div class="card">
+                    <div class="card-title"><span>💡</span> Key Customer Feedback Insights</div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #10b981;">
+                            <strong style="color: #10b981;">Core Strength: Taste & Flavor</strong>
+                            <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Taste is the most frequently discussed topic with 41,599 mentions and an overwhelming 63.6% positive ratio.</p>
+                        </div>
+                        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #ef4444;">
+                            <strong style="color: #ef4444;">Primary Pain Point: Price</strong>
+                            <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Price has the highest negative complaint ratio (14.13%), followed by Packaging damage (6.78%).</p>
+                        </div>
+                        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                            <strong style="color: #d97706;">Neutral Class Ambiguity</strong>
+                            <p style="font-size: 13px; color: #64748b; margin-top: 4px;">3-Star reviews represent mixed feedback (e.g. good product, bad delivery) causing higher error rates.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =========================================================
+                 PAGE 2: ANALYZE REVIEW (HERO FEATURE)
+                 ========================================================= -->
+            <section id="page-analyze" class="page-view">
+                <div class="page-header">
+                    <h1 class="page-title">Analyze Customer Review</h1>
+                    <p class="page-subtitle">Test real-time sentiment prediction and aspect extraction using our ML inference engine.</p>
+                </div>
+
+                <div class="card">
+                    <div class="form-group">
+                        <label for="reviewInput" style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 8px;">
+                            Customer Review Input
+                        </label>
+                        <textarea id="reviewInput" class="review-textarea" placeholder="Paste or type a customer review here..."></textarea>
+                    </div>
+
+                    <div class="sample-buttons">
+                        <span class="sample-title">Quick Test Samples:</span>
+                        <button class="sample-btn" data-text="The taste is amazing but delivery was very late.">
+                            🍔 Taste vs Delivery (Mixed)
+                        </button>
+                        <button class="sample-btn" data-text="This product was not good and packaging was damaged.">
+                            🚫 Negation & Damage
+                        </button>
+                        <button class="sample-btn" data-text="Great quality, delicious flavor, and fast shipping!">
+                            ⭐ Highly Positive
+                        </button>
+                        <button class="sample-btn" data-text="The product arrived yesterday afternoon.">
+                            😐 Neutral Statement
+                        </button>
+                    </div>
+
+                    <div id="errorMsg" style="display: none; color: #ef4444; font-size: 13px; font-weight: 600; margin-bottom: 12px;"></div>
+
+                    <button id="analyzeBtn" class="btn-primary">
+                        🔍 Analyze Review
+                    </button>
+                </div>
+
+                <!-- Prediction Results Display -->
+                <div id="resultContainer" class="result-container">
+                    <div class="card" style="border-left: 6px solid var(--primary);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                            <div>
+                                <div style="font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Predicted Overall Sentiment</div>
+                                <div id="resSentimentBadge" class="sentiment-badge-lg positive" style="margin-top: 8px;">
+                                    ✓ POSITIVE
+                                </div>
+                            </div>
+                            <div style="min-width: 200px;">
+                                <div style="font-size: 13px; font-weight: 700; color: var(--text-muted);">Model Confidence: <span id="resConfScore">91%</span></div>
+                                <div class="confidence-bar-bg">
+                                    <div id="resConfFill" class="confidence-bar-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Class Probabilities -->
+                        <div style="margin-top: 20px;">
+                            <div style="font-size: 13px; font-weight: 700; color: var(--text-muted);">Probability Distribution</div>
+                            <table class="prob-table">
+                                <tbody id="resProbList">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="disclaimer-box">
+                            ℹ️ Model probabilities indicate decision boundary confidence from Logistic Regression, not guaranteed truth.
+                        </div>
+                    </div>
+
+                    <!-- Texts Comparison Grid -->
+                    <div class="grid-2col">
+                        <div class="card">
+                            <div class="card-title">📝 Original Review</div>
+                            <p id="resOrigText" style="font-size: 14px; color: var(--text-main); line-height: 1.5; font-style: italic;"></p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">🧹 Cleaned NLP Text</div>
+                            <p id="resCleanText" style="font-size: 14px; color: var(--text-muted); line-height: 1.5; font-family: monospace;"></p>
+                        </div>
+                    </div>
+
+                    <!-- ABSA Aspects Section -->
+                    <div class="card">
+                        <div class="card-title">🧩 Aspect-Based Sentiment Analysis (ABSA)</div>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+                            Granular sentiment extraction across specific customer feedback topics:
+                        </p>
+                        <div id="resAspectsGrid" class="aspects-grid">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =========================================================
+                 PAGE 3: ANALYTICS
+                 ========================================================= -->
+            <section id="page-analytics" class="page-view">
+                <div class="page-header">
+                    <h1 class="page-title">Business Analytics Dashboard</h1>
+                    <p class="page-subtitle">Aggregate metrics derived from 393,579 customer reviews.</p>
+                </div>
+
+                <div class="grid-2col">
+                    <div class="card">
+                        <div class="card-title"><span>📌</span> Top Mentioned Aspects</div>
+                        <div class="chart-box">
+                            <canvas id="analyticsAspectChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><span>⚖️</span> Aspect Sentiment Breakdown</div>
+                        <div class="chart-box">
+                            <canvas id="aspectComparisonChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Comparison Performance -->
+                <div class="card">
+                    <div class="card-title"><span>🤖</span> Model Performance Comparison</div>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+                        Experimental evaluation results across 78,716 test reviews:
+                    </p>
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Model Name</th>
+                                <th>Accuracy</th>
+                                <th>Macro F1-Score</th>
+                                <th>Negative F1</th>
+                                <th>Positive F1</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modelTableBody">
+                            <!-- Loaded from API -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- =========================================================
+                 PAGE 4: ASPECT INSIGHTS
+                 ========================================================= -->
+            <section id="page-aspects" class="page-view">
+                <div class="page-header">
+                    <h1 class="page-title">Aspect-Based Sentiment Insights</h1>
+                    <p class="page-subtitle">Detailed breakdown of food product domain aspects.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><span>🔍</span> Domain Aspect Summary Table</div>
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Aspect Topic</th>
+                                <th>Total Mentions</th>
+                                <th>Positive Mentions</th>
+                                <th>Negative Mentions</th>
+                                <th>Negative Ratio (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Price</strong></td>
+                                <td>19,212</td>
+                                <td>9,429</td>
+                                <td>2,714</td>
+                                <td><span style="color: #ef4444; font-weight: 700;">14.13% 🚨 (Highest Complaint)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Quality</strong></td>
+                                <td>9,272</td>
+                                <td>5,761</td>
+                                <td>965</td>
+                                <td><span style="color: #d97706; font-weight: 700;">10.41%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Delivery</strong></td>
+                                <td>9,767</td>
+                                <td>4,040</td>
+                                <td>968</td>
+                                <td><span style="color: #d97706; font-weight: 700;">9.91%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Packaging</strong></td>
+                                <td>32,583</td>
+                                <td>10,879</td>
+                                <td>2,208</td>
+                                <td><span style="color: #d97706; font-weight: 700;">6.78%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Customer Support</strong></td>
+                                <td>2,909</td>
+                                <td>970</td>
+                                <td>181</td>
+                                <td><span>6.22%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Taste</strong></td>
+                                <td>41,599</td>
+                                <td>26,474</td>
+                                <td>2,102</td>
+                                <td><span style="color: #10b981; font-weight: 700;">5.05% (Top Strength)</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ingredients</strong></td>
+                                <td>18,569</td>
+                                <td>7,994</td>
+                                <td>620</td>
+                                <td><span style="color: #10b981; font-weight: 700;">3.34%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- =========================================================
+                 PAGE 5: ABOUT
+                 ========================================================= -->
+            <section id="page-about" class="page-view">
+                <div class="page-header">
+                    <h1 class="page-title">About Customer Feedback Intelligence</h1>
+                    <p class="page-subtitle">Architecture, methodology, and technical specifications.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><span>🎯</span> Problem Statement</div>
+                    <p style="font-size: 14px; color: var(--text-main); line-height: 1.6;">
+                        E-commerce businesses receive thousands of customer reviews daily. Reading reviews manually is slow, while simple overall star ratings fail to reveal <strong>why</strong> customers are dissatisfied. For example, a customer might love a food product's taste but hate its damaged packaging.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><span>⚙️</span> Technical Solution Stack</div>
+                    <ul style="margin-left: 20px; font-size: 14px; line-height: 1.8; color: var(--text-main);">
+                        <td><strong>Python 3.11</strong> - Core ML & NLP execution environment</td>
+                        <td><strong>TF-IDF Vectorizer</strong> - 1–2 n-grams, 20,000 maximum vocabulary features</td>
+                        <td><strong>Logistic Regression</strong> - Deployment model (Accuracy: 88.12%, Macro F1: 67.04%)</td>
+                        <td><strong>ABSA Engine</strong> - Rule-based aspect & clause matching for 7 domain categories</td>
+                        <td><strong>Flask API</strong> - Python REST backend serving ML prediction endpoints</td>
+                        <td><strong>HTML5 / Custom CSS / Vanilla JS</strong> - Responsive SaaS single page application</td>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><span>🏷️</span> Dataset & Label Methodology</div>
+                    <p style="font-size: 14px; color: var(--text-main); line-height: 1.6;">
+                        Trained on the <strong>Amazon Fine Food Reviews dataset</strong> (568,454 original reviews, 393,579 clean deduplicated reviews).
+                        <br><br>
+                        <strong>Proxy Label Definition:</strong>
+                        <br>
+                        • <strong>1–2 Stars</strong> ➔ Negative
+                        <br>
+                        • <strong>3 Stars</strong> ➔ Neutral
+                        <br>
+                        • <strong>4–5 Stars</strong> ➔ Positive
+                        <br><br>
+                        <em>Note: These proxy labels are derived from star ratings and serve as practical targets for machine learning.</em>
+                    </p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Custom App JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>

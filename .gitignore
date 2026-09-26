@@ -1,0 +1,40 @@
+# Python Virtual Environments
+venv/
+env/
+.venv/
+ENV/
+
+# Python Cache & Compiled Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS System Files
+.DS_Store
+Thumbs.db
+
+# Environment Variables & Secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Large Datasets (Exceeding Git / GitHub file size limits)
+data/raw/*.csv
+data/processed/*.csv
+results/aspect_sentiment_results.csv
+
+# Temporary Files & Logs
+*.log
+tmp/
+scratch/
