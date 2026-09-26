@@ -1,0 +1,14 @@
+# Exclude non-runtime folders and files from Vercel deployment bundle
+data/
+notebooks/
+docs/
+app/
+results/aspect_sentiment_results.csv
+results/error_analysis_samples.csv
+results/model_predictions.json
+src/phase*.py
+src/create_notebooks.py
+src/investigate_duplicate_discrepancy.py
+.git/
+.gitignore
+README.md
